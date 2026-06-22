@@ -1,9 +1,31 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import {
+  InfiniteData,
+  useInfiniteQuery,
+  UseInfiniteQueryOptions,
+} from "@tanstack/react-query";
 import { getTopCoins } from "../api/coins.api";
 import { GetTopCoinsQueryParams } from "../api/coins.types";
 import { coinKeys } from "../api/coins.keys";
+import { Coin } from "../types";
 
-export function useInfiniteCoins(params: Omit<GetTopCoinsQueryParams, "page">) {
+type InfiniteCoinsOptions = Omit<
+  UseInfiniteQueryOptions<
+    Coin[],
+    Error,
+    InfiniteData<Coin[], number>,
+    ReturnType<typeof coinKeys.list>,
+    number
+  >,
+  "queryKey" | "queryFn" | "getNextPageParam" | "initialPageParam"
+>;
+
+export function useInfiniteCoins(
+  params: Omit<GetTopCoinsQueryParams, "page">,
+  options?: Omit<
+    InfiniteCoinsOptions,
+    "queryKey" | "queryFn" | "getNextPageParam" | "initialPageParam"
+  >,
+) {
   return useInfiniteQuery({
     queryKey: coinKeys.list(params),
 
@@ -23,5 +45,6 @@ export function useInfiniteCoins(params: Omit<GetTopCoinsQueryParams, "page">) {
 
     staleTime: 60 * 1000,
     retry: 2,
+    ...options,
   });
 }

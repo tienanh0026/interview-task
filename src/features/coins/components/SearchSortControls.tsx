@@ -1,6 +1,11 @@
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { ArrowUpDown } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface SearchSortControlsProps {
   search: string;
@@ -27,8 +32,8 @@ export function SearchSortControls({
         </label>
         <Input
           value={search}
+          className="text-sm"
           placeholder="Filter by name"
-          className="h-11"
           onChange={(event) => onSearchChange(event.target.value)}
         />
       </div>
@@ -36,7 +41,19 @@ export function SearchSortControls({
         <label className="mb-2 block text-sm font-medium text-slate-700">
           Sort by
         </label>
-        <select
+        <Select
+          value={sortBy}
+          onValueChange={(value) => onSortByChange(value as "price" | "change")}
+        >
+          <SelectTrigger className="h-11 w-full">
+            <SelectValue placeholder="Theme" />
+          </SelectTrigger>
+          <SelectContent side="bottom">
+            <SelectItem value="price">Price</SelectItem>
+            <SelectItem value="change">24h Change</SelectItem>
+          </SelectContent>
+        </Select>
+        {/* <select
           value={sortBy}
           onChange={(event) =>
             onSortByChange(event.target.value as "price" | "change")
@@ -45,23 +62,27 @@ export function SearchSortControls({
         >
           <option value="price">Price</option>
           <option value="change">24h Change</option>
-        </select>
+        </select> */}
       </div>
       <div className="flex items-end justify-between gap-3">
         <div className="w-full">
           <label className="mb-2 block text-sm font-medium text-slate-700">
             Direction
           </label>
-          <select
+          <Select
             value={sortDirection}
-            onChange={(event) =>
-              onSortDirectionChange(event.target.value as "asc" | "desc")
+            onValueChange={(value) =>
+              onSortDirectionChange(value as "asc" | "desc")
             }
-            className="flex h-11 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-900 shadow-sm outline-none transition-colors focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
           >
-            <option value="desc">Descending</option>
-            <option value="asc">Ascending</option>
-          </select>
+            <SelectTrigger className="h-11 w-full">
+              <SelectValue placeholder="Theme" />
+            </SelectTrigger>
+            <SelectContent side="bottom">
+              <SelectItem value="desc">Descending</SelectItem>
+              <SelectItem value="asc">Ascending</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </div>
     </div>

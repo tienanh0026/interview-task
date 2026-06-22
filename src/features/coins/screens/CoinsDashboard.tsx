@@ -60,7 +60,6 @@ export function CoinsDashboard() {
 
   const filteredCoins = useMemo(() => {
     const normalizedSearch = search.trim().toLowerCase();
-    console.log("data", data);
 
     const searched = normalizedSearch
       ? coins.filter((coin) =>
@@ -96,7 +95,7 @@ export function CoinsDashboard() {
           <p className="mb-4 text-sm text-rose-800">
             {error?.message ?? "An unexpected error occurred."}
           </p>
-          <Button onClick={() => refetch()} variant="secondary">
+          <Button onClick={() => refetch()} variant="outline">
             Retry
           </Button>
         </div>

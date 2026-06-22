@@ -14,5 +14,23 @@ const TopCoinsOrder = {
   VOLUME_DESC: "volume_desc",
 } as const;
 
-export type { GetTopCoinsQueryParams, TopCoinsOrderType };
-export { TopCoinsOrder };
+const CoinChartInterval = {
+  HOURLY: "hourly",
+  DAILY: "daily",
+} as const;
+
+type CoinChartIntervalType =
+  (typeof CoinChartInterval)[keyof typeof CoinChartInterval];
+
+interface GetCoinChartDataQueryParams {
+  vs_currency: string;
+  days: number;
+  interval: CoinChartIntervalType;
+}
+
+export type {
+  GetTopCoinsQueryParams,
+  TopCoinsOrderType,
+  GetCoinChartDataQueryParams,
+};
+export { TopCoinsOrder, CoinChartInterval };

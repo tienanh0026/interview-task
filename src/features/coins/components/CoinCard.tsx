@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import type { Coin } from "../types";
 import { Badge } from "./Badge";
+import { Link } from "react-router";
 
 interface CoinCardProps {
   coin: Coin;
@@ -20,17 +21,22 @@ export function CoinCard({ coin }: CoinCardProps) {
 
   return (
     <Card className="space-y-5 border p-4 border-slate-300 bg-card">
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 w-fit">
         <img
           src={coin.image}
           alt={coin.name}
           className="h-12 w-12 rounded-full bg-slate-100 p-1"
         />
         <div>
-          <p className="text-base font-semibold text-slate-950">{coin.name}</p>
-          <p className="text-sm uppercase tracking-[0.24em] text-slate-500">
+          <Link
+            to={`/coins/${coin.id}`}
+            className="text-base font-semibold text-slate-950 hover:underline"
+          >
+            {coin.name}
+          </Link>
+          <div className="text-sm uppercase tracking-[0.24em] text-slate-500">
             {coin.symbol}
-          </p>
+          </div>
         </div>
       </div>
       <div className="space-y-3">

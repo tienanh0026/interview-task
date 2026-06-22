@@ -27,7 +27,6 @@ export function useInfiniteScroll({
       ([entry]) => {
         if (entry.isIntersecting && hasNextPage && !isFetching) {
           fetchNextPage();
-          console.log("runnnnn");
         }
       },
       {
